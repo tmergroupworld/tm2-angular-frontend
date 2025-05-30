@@ -1,0 +1,37 @@
+.photo-upload-container {
+    padding: 20px;
+
+    .image-upload-container {
+        display: inline-block;
+        cursor: pointer;
+    }
+
+    .uploaded-images {
+        display: grid;
+        grid-template-columns: repeat(5, 1fr);
+        /* 5 columns for images */
+        gap: 10px;
+        margin-top: 20px;
+
+        .image-item {
+            position: relative;
+
+            img {
+                width: 100%;
+                height: auto;
+                border-radius: 8px;
+            }
+
+            .remove-image {
+                position: absolute;
+                top: 5px;
+                right: 5px;
+                background: rgba(255, 0, 0, 0.7);
+                color: white;
+                border: none;
+                padding: 5px;
+                border-radius: 50%;
+            }
+        }
+    }
+}

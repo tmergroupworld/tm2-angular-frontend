@@ -1,0 +1,39 @@
+<!-- File input for multiple image selection -->
+<label *ngIf="selectedFiles.length === 0" class="image-upload-container btn btn-bwm red-button">
+    <span>Select Images</span>
+    <input type="file" accept="image/*" (change)="processMultipleFiles($event)" multiple>
+</label>
+
+<!-- Display upload buttons if there are selected files -->
+<button *ngIf="selectedFiles.length > 0" (click)="uploadImages()" type="button" class="btn btn-success">
+    Upload Images
+</button>
+
+<!-- Display cancel cropping button if image is being cropped -->
+<button *ngIf="imageChangedEvent" (click)="cancelCropping()" type="button" class="btn btn-danger">
+    Cancel
+</button>
+
+<!-- Image cropper for each selected image -->
+<image-cropper *ngFor="let fileSnippet of selectedFiles" [imageChangedEvent]="imageChangedEvent"
+    [maintainAspectRatio]="true" [aspectRatio]="4 / 3" [resizeToWidth]="850" format="jpeg"
+    (imageCropped)="imageCropped($event, fileSnippet)" (cropperReady)="cropperReady()" (imageLoaded)="imageLoaded()">
+</image-cropper>
+
+<!-- Display preview and status for each image -->
+<div *ngFor="let fileSnippet of selectedFiles">
+    <div class="img-preview" [ngStyle]="{'background-image': 'url(' + fileSnippet.src + ')'}"></div>
+
+    <!-- Loading Overlay -->
+    <div *ngIf="fileSnippet.pending" class="img-loading-overlay">
+        <div class="img-spinning-circle"></div>
+    </div>
+
+    <!-- Success or Failure status -->
+    <div *ngIf="fileSnippet.status === 'OK'" class="alert alert-success">
+        Image Uploaded Successfully!
+    </div>
+    <div *ngIf="fileSnippet.status === 'FAIL'" class="alert alert-danger">
+        Image Upload Failed
+    </div>
+</div>
