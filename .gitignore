@@ -46,3 +46,7 @@ server/
 node_modules/
 dist/
 .env
+server/
+node_modules/
+dist/
+.env
